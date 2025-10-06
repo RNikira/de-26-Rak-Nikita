@@ -162,14 +162,14 @@ mkdir /etc/net/ifaces/ens20
 echo -e "TYPE=eth\nBOOTPROTO=static\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens20/options
 echo "192.168.1.10/27" > /etc/net/ifaces/ens20/ipv4address
 echo "default via 192.168.1.1" > /etc/net/ifaces/ens20/ipv4route
-echo "nameserver 8.8.8.8" > /etc/net/resolv.conf
+echo "nameserver 8.8.8.8" > /etc/resolv.conf
 systemctl restart network
 echo -e "Port 2026\nAllowUsers remote_user\nMaxAuthTries 2\nPasswordAuthentication yes\nBanner /etc/openssh/banner/" > /etc/openssh/sshd_config
 echo "Authorized access only" > /etc/openssh/banner
 apt-get update && apt-get install dnsmasq -y
 systemctl enable --now dnsmasq
 echo -e "no-resolv\ndomain=au-team.irpo\nserver=8.8.8.8\ninterface=*\naddress=/hq-rtr.au-team.irpo/192.168.1.1\nptr-record=1.1.168.192.in-addr.arpa,hq-rtr.au-team.irpo\naddress=/docker.au-team.irpo/172.16.1.1/naddress=/web.au-team.irpo/172.16.2.1\naddress=/br-rtr.au-team.irpo/192.168.3.1\naddress=/hq-srv.au-team.irpo/192.168.1.10\nptr-record=10.1.168.192.in-addr.arpa,hq-srv.au-team.irpo\naddress=/hq-cli.au-team.irpo/192.168.2.10\nptr-record=10.2.168.192.in-addr.arpa,hq-cli.au-team.irpo\naddress=/br-srv.au-team.irpo/192.168.3.10"
-echo "192.168.1.1	hq-rtr.au-team.irpo"
+echo "192.168.1.1	hq-rtr.au-team.irpo" > /etc/hosts
 systemctl restart dnsmasq
 ```
 
