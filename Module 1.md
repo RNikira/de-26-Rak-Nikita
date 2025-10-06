@@ -164,6 +164,8 @@ echo "192.168.1.10/27" > /etc/net/ifaces/ens20/ipv4address
 echo "default via 192.168.1.1" > /etc/net/ifaces/ens20/ipv4route
 echo "nameserver 8.8.8.8" > /etc/resolv.conf
 systemctl restart network
+useradd remote_user -u 2026
+echo "remote_user:P@ssw0rd" | chpasswd
 echo -e "Port 2026\nAllowUsers remote_user\nMaxAuthTries 2\nPasswordAuthentication yes\nBanner /etc/openssh/banner/" > /etc/openssh/sshd_config
 echo "Authorized access only" > /etc/openssh/banner
 apt-get update && apt-get install dnsmasq -y
