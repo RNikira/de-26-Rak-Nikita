@@ -174,5 +174,6 @@ sed -i "1i\no-resolv\ndomain=au-team.irpo\nserver=8.8.8.8\ninterface=*\naddress=
 echo "192.168.1.1	hq-rtr.au-team.irpo" >> /etc/hosts
 systemctl restart dnsmasq
 ```
+- 
 
 
