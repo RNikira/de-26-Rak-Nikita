@@ -5,8 +5,8 @@ mkdir /etc/net/ifaces/ens{20,21,22}
 echo -e "TYPE=eth\nBOOTPROTO=dhcp\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens20/options
 echo -e "TYPE=eth\nBOOTPROTO=static\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens21/options
 echo -e "TYPE=eth\nBOOTPROTO=static\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens22/options
-echo "172.16.1.1/28" > /etc/net/ifaces/ens21/ipv4address
-echo "172.16.2.1/28" > /etc/net/ifaces/ens22/ipv4address
+echo 172.16.1.1/28 > /etc/net/ifaces/ens21/ipv4address
+echo 172.16.2.1/28 > /etc/net/ifaces/ens22/ipv4address
 sed -i 's/net.ipv4.ip_forward = 0/net.ipv4.ip_forward = 1/g' /etc/net/sysctl.conf
 sysctl -p
 systemctl restart network
@@ -88,7 +88,7 @@ router ospf 1
   no passive-interface tunnel.0
   area 0 authentication
   ex
-ip nat pool NAT_POOL 192.168.1.1-192.168.1.254,192.18.2.1-192.168.2.254
+ip nat pool NAT_POOL 192.168.1.1-192.168.1.254,192.168.2.1-192.168.2.254
 ip nat source dynamic inside-to-outside pool NAT_POOL overload interface int0
 ip pool cli_pool 192.168.2.10-192.168.2.10
 dhcp-server 1
@@ -160,18 +160,19 @@ hostnamectl hostname hq-srv.au-team.irpo
 timedatectl set-timezone Asia/Yekaterinburg
 mkdir /etc/net/ifaces/ens20
 echo -e "TYPE=eth\nBOOTPROTO=static\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens20/options
-echo "192.168.1.10/27" > /etc/net/ifaces/ens20/ipv4address
-echo "default via 192.168.1.1" > /etc/net/ifaces/ens20/ipv4route
-echo "nameserver 8.8.8.8" > /etc/resolv.conf
+echo 192.168.1.10/27 > /etc/net/ifaces/ens20/ipv4address
+echo default via 192.168.1.1 > /etc/net/ifaces/ens20/ipv4route
+echo nameserver 8.8.8.8 > /etc/resolv.conf
 systemctl restart network
 apt-get update && apt-get install dnsmasq -y
 systemctl enable --now dnsmasq
 useradd sshuser -u 2026
 echo "sshuser:P@ssw0rd" | chpasswd
-echo -e "Port 2026\nAllowUsers remote_user\nMaxAuthTries 2\nPasswordAuthentication yes\nBanner /etc/openssh/banner/" > /etc/openssh/sshd_config
+echo -e "Port 2026\nAllowUsers remote_user\nMaxAuthTries 2\nPasswordAuthentication yes\nBanner /etc/openssh/banner/" >> /etc/openssh/sshd_config
 echo "Authorized access only" > /etc/openssh/banner
 sed -i "1i\no-resolv\ndomain=au-team.irpo\nserver=8.8.8.8\ninterface=*\naddress=/hq-rtr.au-team.irpo/192.168.1.1\nptr-record=1.1.168.192.in-addr.arpa,hq-rtr.au-team.irpo\naddress=/docker.au-team.irpo/172.16.1.1/naddress=/web.au-team.irpo/172.16.2.1\naddress=/br-rtr.au-team.irpo/192.168.3.1\naddress=/hq-srv.au-team.irpo/192.168.1.10\nptr-record=10.1.168.192.in-addr.arpa,hq-srv.au-team.irpo\naddress=/hq-cli.au-team.irpo/192.168.2.10\nptr-record=10.2.168.192.in-addr.arpa,hq-cli.au-team.irpo\naddress=/br-srv.au-team.irpo/192.168.3.10" /etc/dnsmasq.conf
 echo "192.168.1.1	hq-rtr.au-team.irpo" >> /etc/hosts
 systemctl restart dnsmasq
 ```
+
 
