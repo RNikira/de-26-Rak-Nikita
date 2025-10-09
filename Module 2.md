@@ -63,7 +63,7 @@ NTP
 ```
 apt-get install chrony -y
 echo -e "server 127.0.0.1 iburst prefer\nhwtimestamp *\nlocal stratum 5\nallow 0/0" >> /etc/chrony.conf
-sytemctl enable --now chronyd
+systemctl enable --now chronyd
 systemctl restart chronyd
 chronyc sources
 chronyc tracking | grep Stratum
