@@ -86,3 +86,40 @@ systemctl restart chronyd
 chronyc sources
 timedatectl
 ```
+---
+ANSIBLE
+---
+- BR-SRV
+```
+apt-get update && apt-get install ansible -y
+tee /etc/ansible/hosts > /dev/null << 'EOF'
+Vhs:
+ hosts:
+  HQ-SRV:
+   ansible_host: 192.168.1.10
+   ansible_user: remote_user
+   ansible_port: 2026
+  HQ-CL1:
+   ansible_host: 192.168.2.10
+   ansible_user: remote_user
+   ansible_port: 2026
+  HQ-RTR:
+   ansible_host: 192.168.1.1
+   ansible_user: net_admin
+   ansible_password: P@sswOrd
+   ansible_connection: network_cli
+   ansible_network_os: ios
+  BR-RTR:
+   ansible_host: 192.168.3.1
+   ansible_user: net_admin
+   ansible_password: P@sswOrd
+   ansible_connection: network_cli
+   ansible_network_os: ios
+EOF
+
+sed -i '/^\[defaults\]$/a ansible_python_interpreter=/usr/bin/python3\ninterpreter_python=auto_silent\nansible_host_key_checking=false' /etc/ansible/ansible.cfg
+
+ssh-keygen -t rsa -b 2048 -f /root/.ssh/id_rsa -N ""
+expect -c 'spawn ssh -p 2026 remote_user@192.168.1.10; expect "password:"; send "P@sswOrd\r"; interact'
+expect -c 'spawn ssh -p 2026 remote_user@192.168.2.10; expect "password:"; send "P@sswOrd\r"; interact'
+```
