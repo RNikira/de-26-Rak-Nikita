@@ -91,7 +91,7 @@ ANSIBLE
 ---
 - BR-SRV
 ```
-apt-get update && apt-get install ansible -y
+apt-get install ansible -y
 tee /etc/ansible/hosts > /dev/null << 'EOF'
 Vhs:
  hosts:
