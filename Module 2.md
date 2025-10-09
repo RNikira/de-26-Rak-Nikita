@@ -56,3 +56,30 @@ mount -a
 mount -v
 touch /mnt/nfs/test
 ```
+---
+NTP
+---
+- ISP
+```
+echo -e "server 127.0.0.1 iburst prefer\nhwtimestamp *\nlocal stratum 5\nallow 0/0" >> /etc/chrony.conf
+sytemctl enable --now chronyd
+systemctl restart chronyd
+chronyc sources
+chronyc tracking | grep Stratum
+```
+- HQ-SRV | CLI
+```
+echo server 172.16.1.1 ibursrt prefer > /etc/chrony.conf
+systemctl enable --now chronyd
+systemctl restart chronyd
+chronyc sources
+timedatectl
+```
+- BR-SRV
+```
+echo server 172.16.2.1 iburst prefer > /etc/chrony.conf
+systemctl enable --now chronyd
+systemctl restart chronyd
+chronyc sources
+timedatectl
+```
