@@ -198,7 +198,7 @@ exec bash
 hostnamectl hostname hq-cli.au-team.irpo
 timedatectl set-timezone Asia/Yekaterinburg
 mkdir /etc/net/ifaces/ens20
-echo -e "TYPE=eth\nBOOTPROTO=static\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens20/options
+echo -e "TYPE=eth\nBOOTPROTO=dhcp\nDISABLED=no\nCONFIG_IPV4=yes" > /etc/net/ifaces/ens20/options
 echo nameserver 8.8.8.8 > /etc/resolv.conf
 systemctl restart network
 dig docker.au-team.irpo
