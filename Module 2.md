@@ -31,6 +31,7 @@ RAID
 ```
 mdadm --create /dev/md0 --level=0 --raid-devices=2 /dev/sd[b-c]
 mdadm --detail -scan --verbose >> /etc/mdadm.conf
+apt-get update && apt-get install fdisk -y
 fdisk /dev/md0
 printf ' n\n \n \n \n \n \nw
 mkfs.ext4 /dev/md0p1
