@@ -79,7 +79,7 @@ timedatectl
 ```
 - BR-SRV
 ```
-apt-get install chrony -y
+apt-get update && apt-get install chrony -y
 echo server 172.16.2.1 iburst prefer > /etc/chrony.conf
 systemctl enable --now chronyd
 systemctl restart chronyd
