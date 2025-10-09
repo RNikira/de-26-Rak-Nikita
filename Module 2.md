@@ -34,7 +34,7 @@ mdadm --detail -scan --verbose >> /etc/mdadm.conf
 apt-get update && apt-get install fdisk -y
 fdisk /dev/md0
 mkfs.ext4 /dev/md0p1
-echo -e "/dev/md0p1  /raid  ext4  defaults  0  0" >> /etc/fstab
+echo -e "/dev/md0p1    /raid  ext4  defaults    0    0" >> /etc/fstab
 mkdir /raid
 mount -a
 apt-get install nfs-server -y
