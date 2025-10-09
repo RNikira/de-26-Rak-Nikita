@@ -51,7 +51,7 @@ systemctl restart nfs
 ```
 apt-get update && apt-get install nfs-clients -y
 mkdir -p /mnt/nfs
-echo -e "192.168.1.10:/raid/nfs  /mnt/nfs      nfs    intr,soft,_netdex,x-systemd.automount    0      0" >> /etc/fstab
+echo -e "192.168.1.10:/raid/nfs  /mnt/nfs      nfs    intr,soft,_netdev,x-systemd.automount    0      0" >> /etc/fstab
 mount -a
 mount -v
 touch /mnt/nfs/test
