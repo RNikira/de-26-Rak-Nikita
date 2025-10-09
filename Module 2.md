@@ -71,7 +71,7 @@ chronyc tracking | grep Stratum
 - HQ-SRV | CLI
 ```
 apt-get install chrony -y
-echo server 172.16.1.1 ibursrt prefer > /etc/chrony.conf
+echo server 172.16.1.1 iburst prefer > /etc/chrony.conf
 systemctl enable --now chronyd
 systemctl restart chronyd
 chronyc sources
