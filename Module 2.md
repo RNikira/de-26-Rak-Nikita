@@ -61,6 +61,7 @@ NTP
 ---
 - ISP
 ```
+apt-get install chrony -y
 echo -e "server 127.0.0.1 iburst prefer\nhwtimestamp *\nlocal stratum 5\nallow 0/0" >> /etc/chrony.conf
 sytemctl enable --now chronyd
 systemctl restart chronyd
@@ -69,6 +70,7 @@ chronyc tracking | grep Stratum
 ```
 - HQ-SRV | CLI
 ```
+apt-get install chrony -y
 echo server 172.16.1.1 ibursrt prefer > /etc/chrony.conf
 systemctl enable --now chronyd
 systemctl restart chronyd
@@ -77,6 +79,7 @@ timedatectl
 ```
 - BR-SRV
 ```
+apt-get install chrony -y
 echo server 172.16.2.1 iburst prefer > /etc/chrony.conf
 systemctl enable --now chronyd
 systemctl restart chronyd
