@@ -147,7 +147,8 @@ int tunnel.0
 router ospf 1
   network 172.16.0.0/30 area 0
 	network 192.168.3.0/28 area 0
-	passive-interface tunnel.0
+	passive-interface default
+	no passive-interface tunnel.0
 	area 0 authentication
 	ex
 ip nat pool NAT_POOL 192.168.3.1-192.168.3.254
