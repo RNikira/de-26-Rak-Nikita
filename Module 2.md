@@ -132,5 +132,5 @@ sed -i '/^\[defaults\]$/a ansible_python_interpreter=/usr/bin/python3\ninterpret
 ssh-keygen -t rsa -b 2048 -f /root/.ssh/id_rsa -N ""
 sshpass -p 'P@ssw0rd' ssh-copy-id -p 2026 sshuser@192.168.1.10
 sshpass -p 'P@ssw0rd' ssh-copy-id -p 2026 sshuser@192.168.2.10
-ansible -m ping
+ansible all -m ping
 ```
