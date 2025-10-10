@@ -91,7 +91,13 @@ ANSIBLE
 ---
 - CLI
 ```
-useradd sshuser -u
+useradd sshuser -u 2026
+echo "sshuser:P@ssw0rd" | chpasswd
+sed -i 's/# WHEEL_USERS ALL=(ALL:ALL) NOPASSWD: ALL/ WHEEL_USERS ALL=(ALL:ALL) NOPASSWD: ALL/g' /etc/sudoers
+gpasswd -a "sshuser" wheel
+sed -i '1i\Port 2026\nAllowUsers sshuser\nMaxAuthTries 2\nPasswordAuthentication yes\nBanner /etc/openssh/banner' /etc/openssh/sshd_config
+echo Authorized access only > /etc/openssh/banner
+systemctl restart sshd
 ```
 - BR-SRV
 ```
