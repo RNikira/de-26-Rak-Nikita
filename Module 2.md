@@ -120,6 +120,7 @@ EOF
 sed -i '/^\[defaults\]$/a ansible_python_interpreter=/usr/bin/python3\ninterpreter_python=auto_silent\nansible_host_key_checking=false' /etc/ansible/ansible.cfg
 
 ssh-keygen -t rsa -b 2048 -f /root/.ssh/id_rsa -N ""
-expect -c 'spawn ssh -p 2026 remote_user@192.168.1.10; expect "password:"; send "P@sswOrd\r"; interact'
-expect -c 'spawn ssh -p 2026 remote_user@192.168.2.10; expect "password:"; send "P@sswOrd\r"; interact'
+expect -c 'spawn ssh -p 2026 sshuser@192.168.1.10; expect "password:"; send "P@sswOrd\r"; interact'
+expect -c 'spawn ssh -p 2026 sshuser@192.168.2.10; expect "password:"; send "P@sswOrd\r"; interact'
+ansible -m ping
 ```
