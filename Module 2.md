@@ -89,6 +89,10 @@ timedatectl
 ---
 ANSIBLE
 ---
+- CLI
+```
+useradd sshuser -u
+```
 - BR-SRV
 ```
 apt-get install ansible -y
