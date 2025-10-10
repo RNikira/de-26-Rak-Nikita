@@ -129,9 +129,8 @@ EOF
 
 sed -i '/^\[defaults\]$/a ansible_python_interpreter=/usr/bin/python3\ninterpreter_python=auto_silent\nansible_host_key_checking=false' /etc/ansible/ansible.cfg
 
-sshpass -p 'P@sswOrd' ssh-copy-id -p 2026 remote_user@192.168.1.10
 ssh-keygen -t rsa -b 2048 -f /root/.ssh/id_rsa -N ""
-expect -c 'spawn ssh -p 2026 sshuser@192.168.1.10; expect "password:"; send "P@ssw0rd\r"; interact'
-expect -c 'spawn ssh -p 2026 sshuser@192.168.2.10; expect "password:"; send "P@ssw0rd\r"; interact'
+sshpass -p 'P@ssw0rd' ssh-copy-id -p 2026 sshuser@192.168.1.10
+sshpass -p 'P@ssw0rd' ssh-copy-id -p 2026 sshuser@192.168.2.10
 ansible -m ping
 ```
