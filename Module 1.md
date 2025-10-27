@@ -25,8 +25,9 @@ conf t
 hostname hq-rtr
 ip domain-name au-team.irpo
 ntp timezone utc+5
+ip name-server 8.8.8.8
 int int0
-  ip add 172.16.1.2/28
+  ip add 172.16.1.4/28
   ip nat outside
   ex
 int int1
@@ -77,7 +78,7 @@ username net_admin
 int tunnel.0
   ip add 172.16.0.1/30
   ip mtu 1400
-  ip tunnel 172.16.1.2 172.16.2.2 mode gre
+  ip tunnel 172.16.1.4 172.16.2.5 mode gre
   ip ospf authentication-key ecorouter
   ex
 router ospf 1
@@ -110,9 +111,10 @@ en
 conf t
 hostname br-rtr
 ip domain-name au-team.irpo
-ntp timezone utc +5
+ntp timezone utc+5
+ip name-server 8.8.8.8
 int int0
-  ip add 172.16.2.2/28
+  ip add 172.16.2.5/28
   ip nat outside
   ex
 int int1
@@ -141,7 +143,7 @@ username net_admin
 int tunnel.0
   ip add 172.16.0.2/30
   ip mtu 1400
-  ip tunnel 172.16.2.2 172.16.1.2 mode gre
+  ip tunnel 172.16.2.5 172.16.1.4 mode gre
   ip ospf authentication-key ecorouter
   ex
 router ospf 1
